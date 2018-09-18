@@ -116,8 +116,9 @@ var Downloader = {
    * Adds a File to the downloadQueue and triggers the download when no file is in progress
    * @param {String} url
    * @param {?String} md5
+   * @param {?String} name
    */
-  load: function(url, md5) {
+  load: function(url, md5, name) {
     //console.log("load");
     //console.log("loading "+url);
     md5 = md5 || null;
@@ -126,13 +127,13 @@ var Downloader = {
       document.addEventListener("DOWNLOADER_initialized", function onInitialized(event) {
         //console.log("initialization done");
         event.target.removeEventListener("DOWNLOADER_initialized", onInitialized, false);
-        Downloader.load(url, md5);
+        Downloader.load(url, md5, name);
       }, false);
       return;
     }
     var fileObject = {
       url: url,
-      name: url.replace(/^.*\//, ""),
+      name: name || url.replace(/^.*\//, ""),
       md5: md5
     };
     Downloader.downloadQueue.push(fileObject);
@@ -612,9 +613,10 @@ var Downloader = {
        * downlaods file at url and check md5sum if enabled
        * @param {String} url
        * @param {String} md5
-       * 
+       * @param {?String} name
+       *
        */
-      get: function(url, md5) {
+      get: function(url, md5, name) {
         /*if (!Downloader.isInitialized()){
           console.error("You have to initialize Downloader first");
           return;
@@ -627,13 +629,14 @@ var Downloader = {
           document.dispatchEvent(createEvent("DOWNLOADER_noWifiConnection"));
           return;
         }
-        return Downloader.load(url, md5);
+        return Downloader.load(url, md5, name);
       },
       /**
        * downloads multiple Files in a row
        * DownloadObject:{
        *   url: sourceURL for download,
        *   md5: md5sum of file to compare with, or null for no compare
+       *   name: filename to store
        * }
        * @param {Array.<DownloadObject>} list
        */
@@ -644,7 +647,7 @@ var Downloader = {
         }
         for (var i = 0; i < list.length; i++) {
           var fileObject = list[i];
-          Downloader.load(fileObject.url, fileObject.md5);
+          Downloader.load(fileObject.url, fileObject.md5, fileObject.name);
         }
       },
       abort: function() {
