@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-file-downloader" version="0.3.2">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-file-downloader" version="0.4.0">
 	<name>Downloader</name>
 	<author>Fabian Strachanski</author>
 	<author>Manuel Ramon Lopez Torres</author>
