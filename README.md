@@ -1,27 +1,6 @@
 # file-downloader
 Cordova plugin to download a List of files or a single file to the Phone, check consistency and unzip if necessary (Android and ios)
 
-## Changes 0.2.1 -> 0.3.0
-- Fixed dependencies versions
-- Moved to mramonlopez repos
-
-## Changes 0.2.0 -> 0.2.1
- - Added downloader.abort() function to abort downloads in progress.
-
-## Changes 0.1.5 -> 0.2.0
- - move to new cordova plugin registry
-
-## Changes 0.1.4 -> 0.1.5
- - Fix for issue #2 new initialization after download-error works properly now.
-
-## Changes 0.1.3 -> 0.1.4
-- fixed an issue with older javascript versions and reserved words.
-
-## Changes 0.1.2 -> 0.1.3
-- Unzipping is now queue based like the download porgress.
-
-## Changes 0.1.1 -> 0.1.2
-- noMedia flag in init options to prevent gallery from scanning download folder
 
 ## install
 ```
@@ -30,7 +9,7 @@ cordova plugin add cordova-plugin-file-downloader
 
 ## usage
 
-###Initialize the downloader
+### Initialize the downloader
 
 ```javascript
 downloader.init({folder: "yourPersistantAppFolder", unzip: true});
@@ -45,13 +24,13 @@ options:
 - **noMedia**: *true* -> prevent gallery from scan files on android [default: *true*]
 - **wifiOnly**: *true* -> only Download when connected to Wifi, else fires ``DOWNLOADER_noWifiConnection`` event [default: *false*]
 
-###Download single file
+### Download single file
 
 ```javascript
 downloader.get("http://yourhost.de/some.zip");
 ```
 
-###Download multiple files
+### Download multiple files
 
 ```javascript
 downloader.getMultipleFiles([
@@ -60,14 +39,14 @@ downloader.getMultipleFiles([
   {url:"http://yourhost.de/some3.zip"}
 ]);
 ```
-###Abort download in progress
+### Abort download in progress
 You have to re-init downloader after aborting an transfer
 
 ```javascript
 downloader.abort();
 ```
 
-###Events
+### Events
 ```javascript
 document.addEventListener(eventName, function(event){
   var data = event.data;
@@ -93,12 +72,18 @@ DOWNLOADER_fileCheckFailed    data:[string calculatedMd5sum, string md5, string 
 DOWNLOADER_fileCheckError     data:[object error]
 ```
 
-##Full Examples
+## Full Examples
 
 ### Download file some.txt to folder testApp
 ```javascript
 downloader.init({folder: "testApp"});
 downloader.get("http://yourhost.de/some.txt");
+```
+
+### Download file some.txt to folder testApp and give it a new name
+```javascript
+downloader.init({folder: "testApp"});
+downloader.get("http://yourhost.de/some.txt", null, "ohername.txt");
 ```
 
 ### Download file some.zip to testApp, extract it and delete it afterwards
@@ -118,6 +103,7 @@ downloader.get("http://yourhost.de/some.zip");
 downloader.init({folder: "testApp", unzip: true, check: true});
 downloader.get("http://yourhost.de/some.zip", "3f4ea2219aa321ef5cd3143ea33076ab");
 ```
+
 ### Download file abort.zip and abort download, the download another.zip
 ```javascript
 downloader.init({folder: "testApp", unzip: true, check: true});
